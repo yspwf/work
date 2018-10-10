@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+    </head>
+    
+    <body>
+        <div id="app"></div>
+    </body>
+</html>
+<script type="text/javascript">
+//UA检测
+var isAndroid = win.navigator.appVersion.match(/android/gi),
+    isIPhone = win.navigator.appVersion.match(/iphone/gi);
+
+//对ios设备的dpr进行判断，安卓统一设定为1
+var dpr= isIPhone ? Math.min(win.devicePixelRatio, 3) : 1;
+    scale = 1 / dpr;
+    
+var docEl = document.documentElement;
+var metaEl = doc.createElement('meta');
+
+//设定dpr和meta
+docEl.dataset.dpr = dpr;
+metaEl.setAttribute('name', 'viewport');
+metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+docEl.documentElement.firstElementChild.appendChild(metaEl);
+
+//动态设定根元素下的font-size大小
+var width = docEl.getBoundingClientRect().width;
+//pc等大屏幕下
+if (width / dpr > 540) {
+     width = 540 * dpr;
+}
+//将页面分为10等份，易得出750px视觉稿下根元素font-size为75px
+var rem = width / 10;
+docEl.style.fontSize = rem + 'px';
+</script>
+<script type="text/javascript" src="./app.js"></script>
