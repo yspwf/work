@@ -18,27 +18,47 @@ const routes = [
     {
         path:'/',
         name:'home',
-        component: Home
+        component: Home,
+        meta:{
+            title:'首页',
+            index:0
+        }
     },
     {
         path:'/home',
         name:'home',
-        component: Home
+        component: Home,
+        meta:{
+            title:'首页',
+            index:3
+        }
     },
     {
         path:'/message',
         name:'message',
-        component: Message
+        component: Message,
+        meta:{
+            title:'消息',
+            index:1
+        }
     },
     {
         path:'/address',
         name:'address',
-        component: Address
+        component: Address,
+        meta:{
+            title:'通讯录',
+            index:2
+        }
     },
     {
         path:'/mine',
         name:'mine',
-        component: Mine
+        component: Mine,
+        meta:{
+            title:'我的',
+            index:4
+        }
     }
 ];
 

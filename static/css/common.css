@@ -2,9 +2,26 @@
     margin: 0;
     padding: 0;
 }
+html {
+        font-family: arail;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        line-height: 1;
+        font-size: 20px;
+        height:100%;
+        overflow-x: hidden;
+    }
+
 body{
     background-color: #f1f1f1;
+    position: relative;
+    overflow-x: hidden;
+    min-height:100%;
+    display: flex;
+    flex-direction: column;
+    
 }
+
 a{
     text-decoration: none;
     color:#999;
@@ -12,4 +29,11 @@ a{
 ul,li{
     padding: 0;
     margin: 0;
+    list-style: none;
 }
+
+#app{
+        display: flex;
+        flex:1;
+        flex-direction: column;
+    }

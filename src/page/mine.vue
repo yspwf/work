@@ -78,7 +78,7 @@ export default {
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
-    width: 50%;
+    width: 60%;
     text-indent: 3rem;
 }
 .headImg .partment span{
@@ -90,9 +90,9 @@ export default {
     font-size: 1.5rem;
 }
 .headImg .img{
-    width: 50%;
+    width: 40%;
     text-align: center;
-    padding-left: 10rem;
+    padding-left: 4rem;
 }
 .headImg .img img{
     height: 7rem;
