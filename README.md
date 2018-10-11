@@ -9,7 +9,10 @@ work manager
 
 使用方式：
 git  clone  git@github.com:yspwf/work.git
+
 npm install 
+
+
 npm run dev
 
 带创建部分：通讯录，其他部分待完善
