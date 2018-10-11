@@ -149,7 +149,7 @@ export default {
 }
 .operation_list a{
     height: 4.5rem;
-    line-height: 4.5rem;
+    line-height: 5rem;
     font-size: 1.4rem;
     border-bottom:1px solid #eaeaea;
 }
