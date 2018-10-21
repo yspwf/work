@@ -16,6 +16,8 @@ import Mine from './page/mine.vue';
 
 import Detail from './page/detail.vue';
 
+import Integral from './page/integral.vue';
+
 import Test from './page/test.vue';
 
 const routes = [
@@ -72,6 +74,14 @@ const routes = [
         meta:{
             title:'详情',
             index:5
+        }
+    },{
+        path:'/integral',
+        name:'integral',
+        component: Integral,
+        meta:{
+            title:'积分',
+            index:6
         }
     },
    

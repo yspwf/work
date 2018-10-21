@@ -27,12 +27,16 @@
         <div class="operation_list collection">
             <a href=""><i><img src="../../static/images/set.png"></i>我的收藏</a>
             <a href=""><i><img src="../../static/images/set.png"></i>我的收藏</a>
+            <router-link to="/integral"><i><img src="../../static/images/set.png"></i>我的积分</router-link>
         </div>
 
         <div class="operation_list help">
             <a href=""><i><img src="../../static/images/set.png"></i>帮助中心</a>
             <a href=""><i><img src="../../static/images/set.png"></i>建议与反馈</a>
             <a href=""><i><img src="../../static/images/set.png"></i>设置</a>
+            <!--
+            <a v-bind:href="/integral"><i><img src="../../static/images/set.png"></i>设置</a>
+            -->
         </div>
 
 
