@@ -26,7 +26,7 @@
         </div>
         <div class="operation_list collection">
             <a href=""><i><img src="../../static/images/set.png"></i>我的收藏</a>
-            <a href=""><i><img src="../../static/images/set.png"></i>我的收藏</a>
+            <router-link to="/coupons"><i><img src="../../static/images/set.png"></i>优惠券</router-link>
             <router-link to="/integral"><i><img src="../../static/images/set.png"></i>我的积分</router-link>
         </div>
 
@@ -71,6 +71,7 @@ export default {
 .mine{
     background: #fff;
     width: 100%;
+    margin-bottom: 8rem;
 }
 .headImg{
     display: flex;

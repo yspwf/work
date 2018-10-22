@@ -9,7 +9,7 @@
         		积分签到
         	</div>
         	<div class="integral_history">
-        		<router-link to="/">
+        		<router-link to="/integraldetail">
 					<div class="history_img">
 						<img src="../../static/images/history.png">
 					</div>
@@ -338,7 +338,7 @@ export default{
 }
 .get_integral .task_list .goods .goods_info .title h4{
 	height: 2.5rem;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
 	color:#666;
 }
 .get_integral .task_list .goods .goods_info .title span{

@@ -24,7 +24,7 @@
             <ul class="layout">
                  <li>
                     <span>优惠券</span>
-                    <router-link to="/" class="preferential">满40减10</router-link>
+                    <router-link to="/coupons" class="preferential">满40减10</router-link>
                 </li>
                 
             </ul>

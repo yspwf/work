@@ -21,6 +21,10 @@ import Exchange from './page/exchange.vue';
 
 import ShippingAddress from './page/shippingaddress.vue';
 
+import Coupons from './page/coupons.vue';
+import IntegralDetail from './page/integraldetail.vue';
+
+
 import Test from './page/test.vue';
 
 const routes = [
@@ -99,8 +103,24 @@ const routes = [
         name:'shippingaddress',
         component: ShippingAddress,
         meta:{
-            title:'兑换',
-            index:7
+            title:'收货地址',
+            index:8
+        }
+    },{
+        path:'/coupons',
+        name:'coupons',
+        component: Coupons,
+        meta:{
+            title:'优惠券',
+            index:9
+        }
+    },{
+        path:'/integraldetail',
+        name:'integraldetail',
+        component: IntegralDetail,
+        meta:{
+            title:'积分详情',
+            index:10
         }
     },
    
