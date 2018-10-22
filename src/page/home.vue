@@ -252,7 +252,6 @@ export default {
 }
 .commonly_list a{
     width: 25%;
-    height:10rem;
     display: block;
     text-align: center;
     display: flex;
@@ -260,19 +259,19 @@ export default {
     flex-direction: column;
 }
 .commonly_list .common_icon{
-    height:6rem;
+    height:5rem;
     display: block;
-    line-height: 6rem;
+    line-height: 5rem;
 }
 .commonly_list font{
-     height:4rem;
+    height: 3rem;
     display: block;
-    line-height: 2.5rem;
+    line-height: 2rem;
     font-size: 1.5rem;
 }
 .commonly_list .common_icon img{
-    width:4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     padding-top: 2rem;
 }
 </style>

@@ -17,7 +17,7 @@
 
 
 
-        <a href="" class="message_list">
+        <router-link to="/detail" class="message_list">
            <div class="headimg">
                 <img src="../../static/images/head.png">
             </div>
@@ -28,8 +28,8 @@
             <div class="time">
                 刚刚
             </div>
-        </a>
-        <a href="" class="message_list">
+        </router-link>
+        <router-link to="/detail" class="message_list">
             <div class="headimg">
                 <img src="../../static/images/head.png">
             </div>
@@ -40,8 +40,8 @@
             <div class="time">
                 45分钟前
             </div>
-        </a>
-        <a href="" class="message_list">
+        </router-link>
+        <router-link to="/detail" class="message_list">
             <div class="headimg">
                 <img src="../../static/images/head.png">
             </div>
@@ -52,8 +52,8 @@
             <div class="time">
                 3小时以前
             </div>
-        </a>
-        <a href="" class="message_list">
+        </router-link>
+        <router-link to="/detail" class="message_list">
             <div class="headimg">
                 <img src="../../static/images/head.png">
             </div>
@@ -64,9 +64,9 @@
             <div class="time">
                 2天以前
             </div>
-        </a>
+        </router-link>
 
-         <a href="" class="message_list">
+         <router-link to="/detail" class="message_list">
             <div class="headimg">
                 <img src="../../static/images/head.png">
             </div>
@@ -77,7 +77,7 @@
             <div class="time">
                 星期一
             </div>
-        </a>
+        </router-link>
        
     </div>
 </template>
@@ -103,6 +103,7 @@ export default {
     display: -webkit-flex;
     height:6rem;
     border-bottom: 1px solid #e2e2e2;
+    padding: 0.5rem 0;
 }
 .message_list .headimg{
     width:12%;

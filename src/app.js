@@ -17,6 +17,9 @@ import Mine from './page/mine.vue';
 import Detail from './page/detail.vue';
 
 import Integral from './page/integral.vue';
+import Exchange from './page/exchange.vue';
+
+import ShippingAddress from './page/shippingaddress.vue';
 
 import Test from './page/test.vue';
 
@@ -82,6 +85,22 @@ const routes = [
         meta:{
             title:'积分',
             index:6
+        }
+    },{
+        path:'/exchange',
+        name:'exchange',
+        component: Exchange,
+        meta:{
+            title:'兑换',
+            index:7
+        }
+    },{
+        path:'/shippingaddress',
+        name:'shippingaddress',
+        component: ShippingAddress,
+        meta:{
+            title:'兑换',
+            index:7
         }
     },
    
