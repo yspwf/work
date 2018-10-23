@@ -5,8 +5,12 @@ import '../static/css/common.css';
 
 //引入路由
 import VueRouter from 'vue-router';
-
 Vue.use(VueRouter);
+
+
+//引入axios 异步访问组件
+import axios from 'axios';
+Vue.prototype.$http = axios;
 
 
 import Home from './page/home.vue';
@@ -23,6 +27,8 @@ import ShippingAddress from './page/shippingaddress.vue';
 
 import Coupons from './page/coupons.vue';
 import IntegralDetail from './page/integraldetail.vue';
+
+import Login from './page/login.vue';
 
 
 import Test from './page/test.vue';
@@ -88,7 +94,8 @@ const routes = [
         component: Integral,
         meta:{
             title:'积分',
-            index:6
+            index:6,
+            requireAuth: true
         }
     },{
         path:'/exchange',
@@ -96,7 +103,8 @@ const routes = [
         component: Exchange,
         meta:{
             title:'兑换',
-            index:7
+            index:7,
+            requireAuth: true
         }
     },{
         path:'/shippingaddress',
@@ -104,7 +112,8 @@ const routes = [
         component: ShippingAddress,
         meta:{
             title:'收货地址',
-            index:8
+            index:8,
+            requireAuth: true
         }
     },{
         path:'/coupons',
@@ -112,7 +121,8 @@ const routes = [
         component: Coupons,
         meta:{
             title:'优惠券',
-            index:9
+            index:9,
+            requireAuth: true
         }
     },{
         path:'/integraldetail',
@@ -120,8 +130,13 @@ const routes = [
         component: IntegralDetail,
         meta:{
             title:'积分详情',
-            index:10
+            index:10,
+            requireAuth: true
         }
+    },{
+        path:'/login',
+        name:'long',
+        component: Login,
     },
    
 ];
@@ -131,6 +146,16 @@ const router = new VueRouter({
     routes:routes
 });
 
+router.beforeEach((to, from, next)=>{
+    if(to.meta.requireAuth){
+       next({
+           path:'/login',
+           query:{redirect: to.fullPath}
+       });
+    }else{
+        next();
+    }
+});
 
 new Vue({
     el:"#app",
