@@ -13,6 +13,7 @@ import axios from 'axios';
 Vue.prototype.$http = axios;
 
 
+
 import Home from './page/home.vue';
 import Message from './page/message.vue';
 import Address from './page/address.vue';

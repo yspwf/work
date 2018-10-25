@@ -84,11 +84,22 @@
 
 
 <script>
+
 export default {
     data(){
         return {
-
+            socket:''
         }
+    },
+    mounted(){
+        // var vm = this;
+        // /*建立socket连接，使用websocket协议，端口号是服务器端监听端口号*/ 
+        // //vm.socket = io('ws://localhost:5656');
+        // vm.socket = io.connect('127.0.0.1')
+        // vm.socket.on('connect', () => {
+        // console.log('vue中使用socket连接成功！')
+        //  vm.socket.emit()
+        // })
     }
 }
 </script>
