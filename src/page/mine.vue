@@ -135,7 +135,7 @@ export default {
 .life font{
     display: block;
     height:4rem;
-    line-height:2.5rem;
+    line-height:1.5rem;
     font-size: 1.5rem;
 }
 .life_icon{
@@ -143,9 +143,9 @@ export default {
     height:6rem;
 }
 .life_icon img{
-    width: 3.8rem;
-    height:3.8rem;
-    margin-top: 2rem;
+    width: 2.8rem;
+    height:2.8rem;
+    margin-top: 3rem;
 }
 .operation_list{
     display: flex;
@@ -199,11 +199,11 @@ export default {
 }
 .general_icon{
     display: block;
-    height:4rem;
+    height:2.5rem;
 }
 .general_icon img{
-    width: 3.8rem;
-    height:3.8rem;
+    width: 2.8rem;
+    height:2.8rem;
 }
 
 </style>

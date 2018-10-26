@@ -37,19 +37,19 @@
             </div>
             <div class="general">
                 <a href="">
-                    <i class="general_icon"><img src="../../static/images/meeting.png"></i>
+                    <i class="general_img"><img src="../../static/images/meeting.png"></i>
                     <font>会议</font>
                 </a>
                 <a href="">
-                    <i class="general_icon"><img src="../../static/images/meeting.png"></i>
+                    <i class="general_img"><img src="../../static/images/meeting.png"></i>
                     <font>签到</font>
                 </a>
                 <a href="">
-                    <i class="general_icon"><img src="../../static/images/meeting.png"></i>
+                    <i class="general_img"><img src="../../static/images/meeting.png"></i>
                     <font>日程</font>
                 </a>
                 <a href="">
-                    <i class="general_icon"><img src="../../static/images/meeting.png"></i>
+                    <i class="general_img"><img src="../../static/images/meeting.png"></i>
                     <font>广播</font>
                 </a>
             </div>
@@ -208,13 +208,13 @@ export default {
     line-height:2.5rem;
     font-size: 1.5rem;
 }
-.general_icon{
+.general_img{
     display: block;
-    height:4rem;
+    height:2.5rem;
 }
-.general_icon img{
-    width: 3.8rem;
-    height:3.8rem;
+.general_img img{
+    width: 2.8rem;
+    height:2.8rem;
 }
 .commonly_used{
     padding-top: 2rem;
@@ -270,7 +270,7 @@ export default {
     font-size: 1.5rem;
 }
 .commonly_list .common_icon img{
-    width: 3rem;
+    width: 2.5rem;
     height: 3rem;
     padding-top: 2rem;
 }

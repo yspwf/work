@@ -92,14 +92,17 @@ export default {
         }
     },
     mounted(){
-        // var vm = this;
+         var vm = this;
         // /*建立socket连接，使用websocket协议，端口号是服务器端监听端口号*/ 
-        // //vm.socket = io('ws://localhost:5656');
-        // vm.socket = io.connect('127.0.0.1')
-        // vm.socket.on('connect', () => {
-        // console.log('vue中使用socket连接成功！')
-        //  vm.socket.emit()
-        // })
+        vm.socket = io('ws://127.0.0.1:5656');
+        vm.socket.on('connect', () => {
+            console.log('vue中使用socket连接成功！')
+            //vm.socket.emit()
+        });
+        vm.socket.emit('myoperationevent', {name:"34343"});
+        vm.socket.on('disconnect', () => {
+            console.log('disconnect')
+        })
     }
 }
 </script>
@@ -140,7 +143,7 @@ export default {
 }
 .message_list .msg .content{
     line-height: 2rem;
-    font-size:1.2rem;
+    font-size:1rem;
     color: #d4d4d4;
 }
 .message_list .time{
