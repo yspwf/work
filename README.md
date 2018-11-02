@@ -11,6 +11,8 @@ work manager
 git  clone  git@github.com:yspwf/work.git
 
 npm install 
+
+
 npm run dev
 
 带创建部分：通讯录，其他部分待完善
@@ -19,11 +21,17 @@ npm run dev
 1、数据库基本连接和基本操作（mysql）
    基本的mysql链接
    const mysql = require('mysql);
+   
    const pool = mysql.createpool({
+   
          host:'',
+         
          user:'',
+         
          password:'',
+         
          database: ''
+         
    }); 
    
   
