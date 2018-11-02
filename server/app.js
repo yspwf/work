@@ -137,7 +137,6 @@ app.use(KoaBodyparser());
 var md5 = require('md5');
 var sha1 = require('sha1');
 
-var xml2js = require('xml2js');
 
 
 var cors=require('koa2-cors');
@@ -153,11 +152,42 @@ app.use(cors({
       allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
     }))
 
+let config = {
+    token:'weixin',
+    appid:'wx49b53dab5ba0c62d',
+    appsecret:'f30db31f5ec630631b3dff48dc1447a0'
+}
+let weixin = require('./middleware.js');
+app.use(weixin(config));
+let wechat = require('./message.js');
 
 
 var server = require('http').createServer(app.callback());
 var io = require('socket.io')(server);
 var PORT = 80;
+
+
+
+router.post("/", async(ctx, next) => {
+    //console.log(ctx.req.body);
+    // var contentArr = [
+    //     {Title:"汽车保养知识",Description:"汽车保养注意事项",PicUrl:"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=1969823874,187094809&fm=173&app=25&f=JPG?w=640&h=446&s=DD95489A6C5DB5DE9A42D6AF0300701D",Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
+    // ];
+    // let res = text.message(ctx.req.body, contentArr);
+    // console.log(res);
+    // ctx.body = res;
+
+   
+    // let res = wechat.text(ctx.req.body);
+    // console.log(res);
+    // ctx.body = res;
+
+    let res = await wechat.getToken(config);
+    console.log(res);
+
+    //ctx.res.setHeader('Content-Type','text/plain');
+    //ctx.res.end(res);
+});
 
 
 
@@ -176,13 +206,16 @@ router.get("/wx/validate", async (ctx, next) => {
 
 function getJson(ctx){
     return new Promise((resolve, reject)=>{
-        let buf = '';
-        ctx.req.setEncoding('utf8');
-        ctx.req.on('data', (chunk)=>{
-            buf += chunk;
+        var buffer = [];
+        //监听 data 事件 用于接收数据
+        ctx.req.on('data',function(data){
+            buffer.push(data);
         });
-        ctx.req.on('end', ()=>{
-            xml2js.parseString(buf, {explicitArray:false}, function(err, result){
+        //监听 end 事件 用于处理接收完成的数据
+        ctx.req.on('end',function(){
+            var msgXml = Buffer.concat(buffer).toString('utf-8');
+            //console.log(msgXml);
+            xml2js.parseString(msgXml, {explicitArray:false},function(err, result){
                 if(err){
                     reject(err);
                 }else{
@@ -190,51 +223,58 @@ function getJson(ctx){
                 }
             })
         });
+        // let buf = '';
+        // ctx.req.setEncoding('utf8');
+        // ctx.req.on('data', (chunk)=>{
+        //     buf += chunk;
+        // });
+        // ctx.req.on('end', ()=>{
+        //     xml2js.parseString(buf, {explicitArray:false}, function(err, result){
+        //         if(err){
+        //             reject(err);
+        //         }else{
+        //             resolve(result);
+        //         }
+        //     })
+        // });
     });
 }
 
 router.post("/wx/validate", async (ctx, next) => {
-    let resl = await getJson(ctx);
-    let msg = resl.xml;
-    let msgType = msg.MsgType;
-    let result;
-    
-    if(msgType == 'text' && msg.Content=='1'){
+   
+    let data = await getJson(ctx);
+    //console.log(data);
+    let msg = data.xml;
+    let MsgType = msg.MsgType;
+    let result = '';
+    if(MsgType == 'text' && msg.Content=='1'){
         var contentArr = [
-            {Title:"Node.js 微信自定义菜单",Description:"使用Node.js实现自定义微信菜单",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
-            {Title:"Node.js access_token的获取、存储及更新",Description:"Node.js access_token的获取、存储及更新",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72783631"},
-            {Title:"Node.js 接入微信公众平台开发",Description:"Node.js 接入微信公众平台开发",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72765279"}
+            {Title:"Node.js 微信自定义菜单",Description:"使用Node.js实现自定义微信菜单",PicUrl:"http://img.zcool.cn/community/0125fd5770dfa50000018c1b486f15.jpg@1280w_1l_2o_100sh.jpg",Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
+            {Title:"Node.js access_token的获取、存储及更新",Description:"Node.js access_token的获取、存储及更新",PicUrl:"http://img.zcool.cn/community/0125fd5770dfa50000018c1b486f15.jpg@1280w_1l_2o_100sh.jpg",Url:"http://blog.csdn.net/hvkcoder/article/details/72783631"},
+            {Title:"Node.js 接入微信公众平台开发",Description:"Node.js 接入微信公众平台开发",PicUrl:"http://img.zcool.cn/community/0125fd5770dfa50000018c1b486f15.jpg@1280w_1l_2o_100sh.jpg",Url:"http://blog.csdn.net/hvkcoder/article/details/72765279"}
         ];
+
+       
     
 
-        result =  "<xml><ToUserName><![CDATA["+ msg.FromUserName +"]]></ToUserName>";
-        result += "<FromUserName><![CDATA["+ msg.ToUserName +"]]></FromUserName>";
-        result += "<CreateTime>"+ new Date().getTime() +"</CreateTime>";
-        result += "<MsgType><![CDATA[news]]></MsgType>";
-        result += "<ArticleCount>"+contentArr.length+"</ArticleCount>";
-        result += "<Articles>";
+    result =  "<xml><ToUserName><![CDATA["+ msg.FromUserName +"]]></ToUserName>";
+    result += "<FromUserName><![CDATA["+ msg.ToUserName +"]]></FromUserName>";
+    result += "<CreateTime>"+ new Date().getTime() +"</CreateTime>";
+    result += "<MsgType><![CDATA[news]]></MsgType>";
+    result += "<ArticleCount>"+contentArr.length+"</ArticleCount>";
+    result += "<Articles>";
+
+    for (var i in contentArr) {
+        result+="<item>";
+        result+="<Title><![CDATA["+ (contentArr[i].Title || '') +"]]></Title>";
+        result+="<Description><![CDATA["+ (contentArr[i].Description || '') +"]]></Description>";
+        result+="<PicUrl><![CDATA["+ (contentArr[i].PicUrl || '') +"]]></PicUrl>";
+        result+="<Url><![CDATA["+ (contentArr[i].Url || '') +"]]></Url>";
+        result+="</item>";
+      }
+    result += "</Articles></xml>";
+      
      
-        for(var i=0;i<contentArr.length;i++){
-            console.log(i);
-            result+="<item>";
-            result+="<Title><![CDATA["+ contentArr[i].Title +"]]></Title>";
-            result+="<Description><![CDATA["+ contentArr[i].Description +"]]></Description>";
-            result+="<PicUrl><![CDATA["+ contentArr[i].PicUrl +"]]></PicUrl>";
-            result+="<Url><![CDATA["+ contentArr[i].Url +"]]></Url>";
-            result+="</item>";
-        }
-        /*
-        contentArr.map(function(item,index){
-            result+="<item>";
-            result+="<Title><![CDATA["+ item.Title +"]]></Title>";
-            result+="<Description><![CDATA["+ item.Description +"]]></Description>";
-            result+="<PicUrl><![CDATA["+ item.PicUrl +"]]></PicUrl>";
-            result+="<Url><![CDATA["+ item.Url +"]]></Url>";
-            result+="</item>";
-        });
-        */
-        result += "</Articles></xml>";
-        console.log(result);
     }else{
         result =  "<xml><ToUserName><![CDATA["+ msg.FromUserName +"]]></ToUserName>";
         result += "<FromUserName><![CDATA["+ msg.ToUserName +"]]></FromUserName>";
@@ -242,58 +282,11 @@ router.post("/wx/validate", async (ctx, next) => {
         result += "<MsgType><![CDATA[text]]></MsgType>";
         result += "<Content><![CDATA["+ msg.Content +"]]></Content></xml>";
     }
-    //ctx.res.setHeader('Content-Type', 'application/xml');
+    console.log(result);
+    //ctx.res.setHeader('Content-Type','text/plain');
     //ctx.res.end(result);
     ctx.body = result;
-    
-   /*
-    //console.log(ctx.req);
-    let buf = '';
-    ctx.req.setEncoding('utf8');
-    ctx.req.on('data', (chunk) => {
-        buf += chunk;
-    });
-    ctx.req.on('end', ()=>{
-        xml2js.parseString(buf, {explicitArray:false}, function(err, resl){
-            console.log(resl);
-            let msg = resl.xml;
-            let msgType = msg.MsgType;
-            let result;
-            
-            if(msgType == 'text' && msg.Content=='1'){
-                var contentArr = [
-                    {Title:"Node.js 微信自定义菜单",Description:"使用Node.js实现自定义微信菜单",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
-                    {Title:"Node.js access_token的获取、存储及更新",Description:"Node.js access_token的获取、存储及更新",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72783631"},
-                    {Title:"Node.js 接入微信公众平台开发",Description:"Node.js 接入微信公众平台开发",PicUrl:"https://07imgmini.eastday.com/mobile/20180904/20180904_b68cf5f15c73463ef8b8685c46efdb1a_wmk.png",Url:"http://blog.csdn.net/hvkcoder/article/details/72765279"}
-                ];
-        
-                result =  "<xml><ToUserName><![CDATA["+ msg.FromUserName +"]]></ToUserName>";
-                result += "<FromUserName><![CDATA["+ msg.ToUserName +"]]></FromUserName>";
-                result += "<CreateTime>"+ new Date().getTime() +"</CreateTime>";
-                result += "<MsgType><![CDATA[news]]></MsgType>";
-                result += "<ArticleCount>"+contentArr.length+"</ArticleCount>";
-                result += "<Articles>";
-                contentArr.map(function(item,index){
-                    result+="<item>";
-                    result+="<Title><![CDATA["+ item.Title +"]]></Title>";
-                    result+="<Description><![CDATA["+ item.Description +"]]></Description>";
-                    result+="<PicUrl><![CDATA["+ item.PicUrl +"]]></PicUrl>";
-                    result+="<Url><![CDATA["+ item.Url +"]]></Url>";
-                    result+="</item>";
-                });
-                result += "</Articles></xml>";
-            }else{
-                result =  "<xml><ToUserName><![CDATA["+ msg.FromUserName +"]]></ToUserName>";
-                result += "<FromUserName><![CDATA["+ msg.ToUserName +"]]></FromUserName>";
-                result += "<CreateTime>"+ new Date().getTime() +"</CreateTime>";
-                result += "<MsgType><![CDATA[text]]></MsgType>";
-                result += "<Content><![CDATA["+ msg.Content +"]]></Content></xml>";
-            }
-            ctx.res.setHeader('Content-Type', 'application/xml');
-            ctx.res.end(result);
-        })
-    });
-   */
+   
 });
 
 
