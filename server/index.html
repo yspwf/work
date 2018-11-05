@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>聊天室</title>
+        <style>
+        body{
+    padding:50px;
+    font:14px "Lucida Grande", Helvetica ,Arial, sans-serif;
+}
+a{
+    color:#00B7FF;
+}
+#content{
+    width:800px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#room{
+    background-color:#ddd;
+    margin-bottom:1em;
+}
+#messages{
+    width:690px;
+    height:300px;
+    overflow:auto;
+    background-color:#eee;
+    margin-bottom:1em;
+    margin-right:10px;
+}
+ 
+#room-list{
+    float: right;
+    width:100px;
+    height:300px;
+    overflow:auto;
+}
+#room-list div{
+    border-bottom:1px solid #eee;
+}
+#room-list div:hover{
+    background-color:#ddd;
+}
+#send-message{
+    width:700px;
+    margin-bottom:1em;
+    margin-right:1em;
+}
+ 
+#help{
+    font:10px "Lucida grande", Helvetica, Arial ,sans-serif;
+}
+        </style>
+    </head>
+    <body>
+        <div id='content'>
+            <div id="room"></div>
+            <div id='room-list'></div>
+            <div id='messages'></div>
+            
+            <form id='send-form'>
+                <input id='send-message' />
+                <input id='send-button' type='button' value='发送' />
+                
+                <div id='help'>
+                    聊天室操作
+                   
+                </div>
+            </form>
+        </div>
+        <script src='http://localhost:8080/socket.io/socket.io.js' type="text/javascript"></script>
+        <script src='http://code.jquery.com/jquery.min.js' type='text/javascript'></script>
+        <script type="text/javascript">
+            $(function(){
+                var url = "http://localhost:8080";
+                var socket = io.connect(url);
+
+                $("#send-button").on('click', function(){
+                    let _message = $("#send-message").val();
+
+                    if(_message) {
+                        socket.emit('sendMessage',{username: "yy", message: _message});
+                    }
+                    $("#send-message").val('');
+                })
+
+                // socket.on('showMessage', function(data){
+                //     console.log(data);
+                //     $("#messages").text(data.message);
+                // });
+
+                /*接收消息*/
+	socket.on('receiveMessage',function(data){
+        //showMessage(data)
+        $("#messages").append(data.username+"--消息--"+data.message+"<br/>");
+	})
+
+                /*显示消息*/
+	function showMessage(data){
+		var html
+		//if(data.username === uname){
+			html = '<div class="chat-item item-right clearfix"><span class="img fr"></span><span class="message fr">'+data.message+'</span></div>'
+		// }else{
+		// 	html='<div class="chat-item item-left clearfix rela"><span class="abs uname">'+data.username+'</span><span class="img fl"></span><span class="fl message">'+data.message+'</span></div>'
+		// }
+		$('#messages').append(html);
+	}
+            });
+        </script>    
+    </body>
+</html>

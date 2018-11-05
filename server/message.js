@@ -45,7 +45,6 @@ exports.message = (objXml,msg='')=>{
 exports.getToken = (config)=>{
     return new Promise((resolve, reject) => {
         var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="+config.appid+"&secret="+config.appsecret;
-        _this = this;
         request.get(url, function(err, response, body){
             if(!err && response.statusCode==200){
                 resolve(body);

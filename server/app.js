@@ -164,7 +164,7 @@ let wechat = require('./message.js');
 
 var server = require('http').createServer(app.callback());
 var io = require('socket.io')(server);
-var PORT = 80;
+var PORT = 8080;
 
 
 
@@ -305,15 +305,21 @@ server.listen(PORT);
 
 io.on('connection', function (socket) {
     console.log('connect')
-    socket.on('myoperationevent', function(data){
+
+    socket.on('sendMessage', function(data){
         console.log(data);
-        socket.name = data.name;
+        io.emit('receiveMessage', data);
     })
 
-    socket.on('disconnect', (data) => {
-        console.log(data);
-        console.log(socket.name);
-    })
+    // socket.on('myoperationevent', function(data){
+    //     console.log(data);
+    //     socket.name = data.name;
+    // })
+
+    // socket.on('disconnect', (data) => {
+    //     console.log(data);
+    //     console.log(socket.name);
+    // })
 
       
 

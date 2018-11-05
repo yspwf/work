@@ -94,7 +94,7 @@ export default {
     mounted(){
          var vm = this;
         // /*建立socket连接，使用websocket协议，端口号是服务器端监听端口号*/ 
-        vm.socket = io('ws://127.0.0.1:5656');
+        vm.socket = io('ws://127.0.0.1:8080');
         vm.socket.on('connect', () => {
             console.log('vue中使用socket连接成功！')
             //vm.socket.emit()
